@@ -20,10 +20,15 @@ clean: delpyc
 	rm -Rf bin include lib local node_modules compass/.sass-cache
 
 install:
-	python3 -m venv .
-	bin/pip install -r pip-requirements/basic.txt
-	bin/pip install psutil
-	bin/python manage.py migrate
+	# Création d'un environnement virtuel avec Python 3
+	python3 -m venv venv
+	# Activation de l'environnement virtuel
+	. venv/bin/activate && \
+	# Installation des dépendances
+	pip install -r pip-requirements/basic.txt && \
+	pip install psutil && \
+	# Exécution des migrations
+	python manage.py migrate
 
 install-dev: install
 	bundle install --gemfile=compass/Gemfile
