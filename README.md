@@ -50,7 +50,7 @@ sudo apt-get install python-virtualenv python-dev
 **Installing RetroPie-Manager**
 ```sh
 cd
-git clone https://github.com/RetroPie/RetroPie-Manager.git
+git clone https://github.com/Kalimulator/RetroPie-Manager.git
 cd RetroPie-Manager
 make install
 ```
@@ -127,7 +127,7 @@ make install
 sudo kill -9 $(pgrep -f RetroPie-Manager)
 cd 
 rm -rf Retropie-Manager
-git clone https://github.com/RetroPie/RetroPie-Manager.git
+git clone https://github.com/Kalimulator/RetroPie-Manager.git
 cd RetroPie-Manager
 make install
 ```
