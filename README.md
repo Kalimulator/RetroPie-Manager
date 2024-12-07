@@ -44,7 +44,9 @@ sudo apt-get install virtualenv python-dev
 **Dependencies on Ubuntu-based Linux distribution**
 
 ```sh
-sudo apt-get install python-virtualenv python-dev
+sudo apt-get install python3 python3-venv python3-dev
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 **Installing RetroPie-Manager**
