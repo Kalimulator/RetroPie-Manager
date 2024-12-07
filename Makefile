@@ -23,10 +23,10 @@ install:
 	# Création d'un environnement virtuel avec Python 3
 	python3 -m venv venv
 	# Activation de l'environnement virtuel
-	. venv/bin/activate && \
+	. venv/bin/activate
 	# Installation des dépendances
-	pip install -r pip-requirements/basic.txt && \
-	pip install psutil && \
+	pip install -r pip-requirements/basic.txt
+	pip install psutil
 	# Exécution des migrations
 	python manage.py migrate
 
