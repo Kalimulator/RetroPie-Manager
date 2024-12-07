@@ -20,7 +20,7 @@ clean: delpyc
 	rm -Rf bin include lib local node_modules compass/.sass-cache
 
 install:
-	virtualenv --no-site-packages .
+	python3 -m venv .
 	bin/pip install -r pip-requirements/basic.txt
 	bin/pip install psutil
 	bin/python manage.py migrate
