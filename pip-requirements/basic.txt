@@ -1,3 +1,4 @@
 # Basic dependancies, common to every versions and environments
-django>=3.2,<3.3
-autobreadcrumbs==1.1
+django>=3.2,<4.0
+django-breadcrumbs
+

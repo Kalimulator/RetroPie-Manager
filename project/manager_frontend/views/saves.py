@@ -8,10 +8,10 @@ from operator import itemgetter
 from collections import OrderedDict, defaultdict
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404, HttpResponseBadRequest
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from project.utils import keynat

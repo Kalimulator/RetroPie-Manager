@@ -1,7 +1,7 @@
 """
 Here we try to safely use crispy_form if installed
 """
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from project.utils.imports import safe_import_module
 

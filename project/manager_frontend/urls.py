@@ -1,4 +1,7 @@
-from django.conf.urls import url
+app_name = 'manager'
+
+#from django.conf.urls import url
+from django.urls import re_path, path
 from django.views.generic import TemplateView
 
 from .views import HomeView
@@ -13,27 +16,27 @@ from .views.systems import SystemsListView
 from .views.monitor import MonitoringView
 
 urlpatterns = [
-    url(r'^$', HomeView.as_view(), name='home'),
+   re_path (r'^$', HomeView.as_view(), name='home'),
     
-    url(r'^bios/$', BiosListView.as_view(), name='bios'),
-    url(r'^bios/upload$', BiosUploadJsonView.as_view(), name='bios-upload'),
+    re_path(r'^bios/$', BiosListView.as_view(), name='bios'),
+    re_path(r'^bios/upload$', BiosUploadJsonView.as_view(), name='bios-upload'),
     
-    url(r'^config/$', RecalboxConfigFormView.as_view(), name='config'),
+    re_path(r'^config/$', RecalboxConfigFormView.as_view(), name='config'),
 	
-	url(r'^configes/$',  RecalboxConfigEsFormView.as_view(), name='configes'),
+	re_path(r'^configes/$',  RecalboxConfigEsFormView.as_view(), name='configes'),
 	
-	url(r'^configas/$',  RecalboxConfigAsFormView.as_view(), name='configas'),
+	re_path(r'^configas/$',  RecalboxConfigAsFormView.as_view(), name='configas'),
     
-    url(r'^monitoring/$', MonitoringView.as_view(), name='monitoring'),
+    re_path(r'^monitoring/$', MonitoringView.as_view(), name='monitoring'),
     
-    url(r'^logs/$', LogsView.as_view(), name='logs'),
+    re_path(r'^logs/$', LogsView.as_view(), name='logs'),
     
-    url(r'^systems/$', SystemsListView.as_view(), name='roms-systems'),
+    re_path(r'^systems/$', SystemsListView.as_view(), name='roms-systems'),
     
-    #url(r'^systems/roms/saves/$', SavesListView.as_view(), name='roms-saves-list'),
+    #re_path(r'^systems/roms/saves/$', SavesListView.as_view(), name='roms-saves-list'),
     
-    url(r'^systems/roms/(?P<system>[-\w]+)$', RomListView.as_view(), name='roms-list'),
-    url(r'^systems/roms/(?P<system>\w+)/$', RomListView.as_view(), name='roms-list'),
-    url(r'^systems/roms/(?P<system>[-\w]+)/upload/$', RomUploadJsonView.as_view(), name='roms-upload'),
+    re_path(r'^systems/roms/(?P<system>[-\w]+)$', RomListView.as_view(), name='roms-list'),
+    re_path(r'^systems/roms/(?P<system>\w+)/$', RomListView.as_view(), name='roms-list'),
+    re_path(r'^systems/roms/(?P<system>[-\w]+)/upload/$', RomUploadJsonView.as_view(), name='roms-upload'),
 
 ]

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Django settings for recalbox-manager project.
 
@@ -51,10 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     #'django.contrib.sites',
-    'django.contrib.staticfiles',
-    
-    'autobreadcrumbs',
-    
+    'django.contrib.staticfiles',    
     'project.assets_cartographer',
     'project.recalbox_manifest',
     'project.manager_frontend',
@@ -62,17 +59,22 @@ INSTALLED_APPS = (
     #'ajaxuploader',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     #'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+'project.middleware.breadcrumbs_middleware.BreadcrumbsMiddleware',
 )
 
 ROOT_URLCONF = 'project.urls'
@@ -95,7 +97,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'project.utils.context_processors.site_metas',
                 'project.utils.context_processors.manager_version',
-                'autobreadcrumbs.context_processors.AutoBreadcrumbsContext',
             ],
         },
     },
@@ -125,13 +126,13 @@ LANGUAGES = (
     ('de', gettext('German')),
 )
 
-TIME_ZONE = None
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 LOCALE_PATHS = (
     os.path.join(PROJECT_DIR, 'locale'),
@@ -175,6 +176,8 @@ username = getpass.getuser()
 
 # Path to directory that contains bios file
 RECALBOX_BIOS_PATH = os.path.join('/home', username, 'RetroPie/BIOS')
+if not os.path.exists(RECALBOX_BIOS_PATH):
+    raise FileNotFoundError(f"The BIOS path '{RECALBOX_BIOS_PATH}' does not exist.")
 # Path to directory that contains system roms directories
 RECALBOX_ROMS_PATH = os.path.join('/home', username, 'RetroPie/roms')
 # Path to directory that contains system saves

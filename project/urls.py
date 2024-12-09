@@ -14,13 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf import settings
-from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.urls import include, path, re_path
 from django.views.generic import TemplateView
-
-# Discover crumbs from enabled apps
-import autobreadcrumbs
-autobreadcrumbs.autodiscover()
+from django.views.static import serve
 
 # Load asset manifest in memory
 from project import assets_cartographer
@@ -31,17 +28,25 @@ from project import recalbox_manifest
 recalbox_manifest.autodiscover()
 
 urlpatterns = [
-    #url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('project.manager_frontend.urls', namespace='manager')),
-    #url(r'^api/', include('project.api.urls', namespace='api')),
+    # Admin panel
+    path('admin/', admin.site.urls),
+    
+    # Manager frontend
+    path('', include('project.manager_frontend.urls', namespace='manager')),
+    
+    # API (uncomment if needed)
+    # path('api/', include('project.api.urls', namespace='api')),
 ]
 
-# Debug
-#if settings.DEBUG:
-urlpatterns = patterns('',
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-    url(r'^500/$', TemplateView.as_view(template_name="500.html")),
-    url(r'^404/$', TemplateView.as_view(template_name="404.html")),
-    url(r'', include('django.contrib.staticfiles.urls')),
-) + urlpatterns
+# Debug settings
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+            'show_indexes': True,
+        }),
+        path('500/', TemplateView.as_view(template_name="500.html")),
+        path('404/', TemplateView.as_view(template_name="404.html")),
+        path('', include('django.contrib.staticfiles.urls')),
+    ]
+

@@ -14,5 +14,5 @@ class SupportScriptView(ApiBaseJsonView):
     def call(self):
         call = SimpleCaller('.')
         version = call('git', 'describe', '.')
-        print version
+        print(version)
         return version.strip()

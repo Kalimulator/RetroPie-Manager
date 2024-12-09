@@ -1,4 +1,4 @@
-"""
+﻿"""
 Some common class based views
 """
 import json

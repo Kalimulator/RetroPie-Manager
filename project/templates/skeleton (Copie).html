@@ -1,43 +1,39 @@
-﻿{% load i18n assets %}
-{% load static %}
-<!DOCTYPE html>
-<html class="{% block html_attr %}{% endblock %}no-js" lang="{{ LANGUAGE_CODE }}">
+﻿{% load i18n assets %}<!DOCTYPE html>
+<!--[if IE 8]> <html class="{% block html_attr_alt %}{% endblock %}no-js lt-ie9" lang="{{ LANGUAGE_CODE }}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="{% block html_attr %}{% endblock %}no-js" lang="{{ LANGUAGE_CODE }}"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <title>{% block head_title %}{{ SITE.name }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/theme/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/recalbox.min.css' %}">
-
-    {% block header_content %}
-    {% spaceless %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}images/theme/favicon.ico">
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/recalbox.min.css">
+    {% block header_content %}{% spaceless %}
         {% block head_metas %}
-        <meta name="robots" content="index,follow,all">
+            <meta name="robots" content="index,follow,all">
         {% endblock %}
         
         {% block page_more_links %}{% endblock %}
         {% block page_base_js %}
-        
-	  <script src="{% static 'js/modernizr.min.js' %}"></script>
+            {% javascript_tag "js/modernizr.min.js" %}
         {% endblock %}
-    {% endspaceless %}
-    {% endblock %}
-
-    <!-- Sortable Tables -->
-    <link rel="stylesheet" href="{% static 'css/sortable-theme-minimal.css' %}">
-    <script type="text/javascript" src="{% static 'js/sortable.min.js' %}"></script>
+        
+    {% endspaceless %}{% endblock %}
+	
+	<!-- Sortable Tables -->
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/sortable-theme-minimal.css">
+	<script type="text/javascript" src="{{ STATIC_URL }}js/sortable.min.js"></script>
+	<!-- END Sortable Tablea -->
 </head>
 
 <body{% block body_attr %}{% endblock %}>
-    {% block header_topbar %}
-    {% spaceless %}
+    {% block header_topbar %}{% spaceless %}
     <div id="header-container"{% block header_topbar_attr %} class="contain-to-grid"{% endblock %}>
         <nav class="top-bar" data-topbar role="navigation">
             <ul class="title-area">
                 <li class="name">
                     <p class="title-1">
                         <a href="{% url 'manager:home' %}" title="{{ SITE.name }}" class="logo">
-                           <img src="{% static 'images/theme/logo.png' %}" alt="Retropie Logo">
+                           <img src="{{ STATIC_URL }}images/theme/logo.png" alt="Retropie Logo" />
                         </a>
                     </p>
                 </li>
@@ -66,31 +62,25 @@
             </div>
         </nav>
     </div>
-    {% endspaceless %}
-    {% endblock %}
+    
+    {% endspaceless %}{% endblock %}
     
     {% block subheader_container %}{% endblock %}
 
-    {% block content_container %}
-    <div id="body_content"{% block content_container_attrs %}{% endblock %}>
+    {% block content_container %}<div id="body_content"{% block content_container_attrs %}{% endblock %}>
         {% block base_content %}{% endblock %}
-    </div>
-    {% endblock %}
+    </div>{% endblock %}
 
-    {% block footer_container %}
-    <footer>
-        <div class="row larger">
-            <div class="small-12 columns text-right">
-                {% spaceless %}
-                <p><small>{{ SITE.name }} v{{ manager_version }}</small></p>
-                {% endspaceless %}
-            </div>
-        </div>
-    </footer>
-    {% endblock %}
+    {% block footer_container %}<footer>
+    <div class="row larger">
+        <div class="small-12 columns text-right">{% spaceless %}
+            <p><small>{{ SITE.name }} v{{ manager_version }}</small></p>
+        {% endspaceless %}</div>
+    </div>
+    </footer>{% endblock %}
 
     {% block page_more_js %}
-     <script src="{% static 'js/app.min.js' %}"></script>
+        {% javascript_tag "js/app.min.js" %}
     {% endblock %}
 </body>
 </html>

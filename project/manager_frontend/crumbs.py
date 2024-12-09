@@ -2,18 +2,18 @@
 """
 Application Crumbs
 """
-from autobreadcrumbs import site
-from django.utils.translation import ugettext_lazy
+from breadcrumbs import BreadcrumbsMixin
+from django.utils.translation import gettext_lazy
 
 site.update({
-    'manager:home': ugettext_lazy('Home'),
-    'manager:bios': ugettext_lazy('Bios'),
-	'manager:configes': ugettext_lazy('ES Configuration'),
-    'manager:config': ugettext_lazy('RetroArch Configuration'),
-	'manager:configas': ugettext_lazy('Autostart Script'),
-    'manager:logs': ugettext_lazy('Logs'),
-    'manager:monitoring': ugettext_lazy('Monitoring'),
-    'manager:roms-systems': ugettext_lazy('Rom by system'),
-    'manager:roms-list': ugettext_lazy('{{ system_name }}'),
-    #'manager:roms-saves-list': ugettext_lazy('Saves'),
+    'manager:home': gettext_lazy('Home'),
+    'manager:bios': gettext_lazy('Bios'),
+	'manager:configes': gettext_lazy('ES Configuration'),
+    'manager:config': gettext_lazy('RetroArch Configuration'),
+	'manager:configas': gettext_lazy('Autostart Script'),
+    'manager:logs': gettext_lazy('Logs'),
+    'manager:monitoring': gettext_lazy('Monitoring'),
+    'manager:roms-systems': gettext_lazy('Rom by system'),
+    'manager:roms-list': gettext_lazy('{{ system_name }}'),
+    #'manager:roms-saves-list': gettext_lazy('Saves'),
 })

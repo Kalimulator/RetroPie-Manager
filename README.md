@@ -3,7 +3,7 @@
 # Retropie-Manager
 Recalbox-Manager fork for RetroPie 4.x
 
-![alt tag](https://github.com/RetroPie/RetroPie-Manager/blob/retropie/screenshot.png)
+![alt tag](https://github.com/Kalimulator/RetroPie-Manager/blob/retropie/screenshot.png)
 
 # About
 
@@ -24,7 +24,7 @@ With Retropie-Manager you can
 # Limitations
 
 - In this release the virtual gamepad page has been removed.
-- It doesn't support subdirectories at ROMs dir (as reported [here](https://github.com/RetroPie/RetroPie-Manager/issues/5))
+- It doesn't support subdirectories at ROMs dir (as reported [here](https://github.com/Kalimulator/RetroPie-Manager/issues/5))
 
 
 # Install
@@ -44,9 +44,7 @@ sudo apt-get install virtualenv python-dev
 **Dependencies on Ubuntu-based Linux distribution**
 
 ```sh
-sudo apt-get install python3 python3-venv python3-dev
-python3 -m venv venv
-source venv/bin/activate
+sudo apt-get install python-virtualenv python-dev
 ```
 
 **Installing RetroPie-Manager**
@@ -105,7 +103,7 @@ user uses both, only the first works.
 To make Retropie-Manager to start with your raspberry edit your autostart.sh
 
 ```sh
-sudo nano /opt/retropie/configs/all/autostart.sh
+sudo nano /opt/Kalimulator/configs/all/autostart.sh
 ```
 and add this command before **emulationstation #auto** [replace `/PATH/TO/` with the RetroPie-Manager's full path.]
 

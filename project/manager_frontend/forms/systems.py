@@ -6,7 +6,7 @@ import os
 
 from django.conf import settings
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.files.storage import FileSystemStorage
 
 from project.recalbox_manifest import manifest as RECALBOX_MANIFEST
@@ -34,6 +34,6 @@ class SystemCreateForm(forms.Form):
     def save(self):
         name = self.cleaned_data["name"]
         
-        os.mkdir(os.path.join(settings.RECALBOX_ROMS_PATH, name), 0755)
+        os.mkdir(os.path.join(settings.RECALBOX_ROMS_PATH, name), 0o755)
         
         return RECALBOX_MANIFEST[name]

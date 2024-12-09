@@ -1,14 +1,35 @@
 {% extends "skeleton.html" %}
-{% load autobreadcrumb %}
+{% load static assets %}
 
-{% block head_title %}{% current_title_from_breadcrumbs %} - {{ block.super }}{% endblock %}
+{% block breadcrumbs_block %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        {% for crumb in request.breadcrumbs %}
+            <li class="breadcrumb-item {% if forloop.last %}active{% endif %}">
+                {% if not forloop.last %}
+                    <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+                {% else %}
+                    {{ crumb.name }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>
+{% endblock %}
 
 {% block base_content %}
 <div class="row larger manager_frontend">
-    <div class="small-12 columns">{% spaceless %}
-        {% block breadcrumbs_block %}{% autobreadcrumbs_tag %}{% endblock %}
-        {% block manager_title %}<h1>{% current_title_from_breadcrumbs %}</h1>{% endblock %}
+    <div class="small-12 columns">
+        {% block manager_title %}
+{% with request.breadcrumbs|last as last_breadcrumb %}
+	{% if last_breadcrumb.name %} 
+		<h1>{{ last_breadcrumb.name }}</h1>
+	{% else %}
+		<h1>Default Title</h1>
+	{% endif %}
+{% endwith %}
+        {% endblock %}
         {% block manager_content %}{% endblock %}
-    {% endspaceless %}</div>
+    </div>
 </div>
 {% endblock %}

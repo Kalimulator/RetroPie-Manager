@@ -5,9 +5,9 @@ import os
 
 from django.conf import settings
 from django.views.generic.edit import FormView
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from project.manager_frontend.forms.config import ConfigEditForm
 
@@ -30,13 +30,11 @@ class RecalboxConfigAsFormView(FormView):
         return super(RecalboxConfigAsFormView, self).dispatch(request, *args, **kwargs)
             
     def get_config_file(self, filepath):
-        content = None
-            
-        if filepath:
+        try:
             with open(filepath, 'rb') as file:
-                content = file.read()
-        
-        return content
+                return file.read()
+        except FileNotFoundError:
+            return None
     
     def get_context_data(self, **kwargs):
         context = super(RecalboxConfigAsFormView, self).get_context_data(**kwargs)
