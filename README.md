@@ -102,7 +102,7 @@ user uses both, only the first works.
 To make Retropie-Manager to start with your raspberry edit your autostart.sh
 
 ```sh
-sudo nano /opt/Kalimulator/configs/all/autostart.sh
+sudo nano /opt/retropie/configs/all/autostart.sh
 ```
 and add this command before **emulationstation #auto** [replace `/PATH/TO/` with the RetroPie-Manager's full path.]
 
