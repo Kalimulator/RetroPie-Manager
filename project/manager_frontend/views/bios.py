@@ -24,12 +24,25 @@ class BiosListView(MultiFormView):
     Include an upload form to add valid bios file and a delete form to remove 
     some existing bios.
     """
+
+class BiosListView(MultiFormView):
+    template_name = "manager_frontend/bios_list.html"
+    enabled_forms = (BiosUploadForm, BiosDeleteForm)
+
+    def dispatch(self, request, *args, **kwargs):
+        # Initialiser bios_manifest et existing_bios_files avant de traiter la requête
+        self.init_manifest()
+        return super(BiosListView, self).dispatch(request, *args, **kwargs)
+
     template_name = "manager_frontend/bios_list.html"
     enabled_forms = (BiosUploadForm, BiosDeleteForm)
             
     def init_manifest(self):
-        self.bios_manifest = self.get_bios_manifest()
-        self.existing_bios_files = self.get_existing_bios_list()
+        # Initialiser bios_manifest et existing_bios_files si nécessaire
+        if not hasattr(self, 'bios_manifest'):
+            self.bios_manifest = self.get_bios_manifest()
+        if not hasattr(self, 'existing_bios_files'):
+            self.existing_bios_files = self.get_existing_bios_list()
 
     def get_existing_bios_list(self):
         """
@@ -68,12 +81,14 @@ class BiosListView(MultiFormView):
         return tuple( sorted(rom_list, key=itemgetter(1)) )
     
     def get_context_data(self, **kwargs):
+        # Appeler init_manifest pour garantir l'initialisation
+        self.init_manifest()
         context = super(BiosListView, self).get_context_data(**kwargs)
         context.update({
             'bios_path': settings.RECALBOX_BIOS_PATH,
             'bios_manifest': self.bios_manifest,
             'existing_bios_files': self.existing_bios_files,
-            'existing_bios_length': len([True for md5hash,values in self.bios_manifest.items() if values[2]]),
+            'existing_bios_length': len([True for md5hash, values in self.bios_manifest.items() if values[2]]),
         })
         return context
             
@@ -81,9 +96,12 @@ class BiosListView(MultiFormView):
         kwargs.update({'bios_manifest': self.bios_manifest})
         return kwargs
     
+
     def get_delete_form_kwargs(self, kwargs):
-        kwargs.update({'bios_choices': self.get_bios_choices()})
+        bios_choices = self.get_bios_choices()
+        kwargs.update({'bios_choices': bios_choices})
         return kwargs
+
         
     def upload_form_valid(self, form):
         uploaded_file = form.save()

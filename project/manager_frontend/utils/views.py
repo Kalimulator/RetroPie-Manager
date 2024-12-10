@@ -41,6 +41,9 @@ class MultiFormView(TemplateResponseMixin, FormMixin, ProcessFormView):
         """
         if form_class is None:
             form_class = self.get_form_class()
+        if form_class is None:
+            return None
+        
         return form_class(**self.get_form_kwargs(form_class, empty=empty))
     
     def get_form_kwargs(self, form_class=None, empty=False):

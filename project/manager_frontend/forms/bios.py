@@ -43,12 +43,13 @@ class BiosDeleteForm(CrispyFormMixin, forms.Form):
     #crispy_form_helper_kwargs = {}
     
     def __init__(self, *args, **kwargs):
-        self.bios_choices = kwargs.pop('bios_choices')
-        
-        super(BiosDeleteForm, self).__init__(*args, **kwargs)
-        super(forms.Form, self).__init__(*args, **kwargs)
-        
-        self.fields['bios_files'] = forms.MultipleChoiceField(choices=self.bios_choices, widget=forms.CheckboxSelectMultiple, required=False)
+        bios_choices = kwargs.pop('bios_choices', [])
+        super().__init__(*args, **kwargs)
+        self.fields['bios_files'] = forms.MultipleChoiceField(
+            choices=bios_choices,  # Liste de tuples (clé, nom)
+            widget=forms.CheckboxSelectMultiple,
+            required=False
+        )
     
     def save(self):
         bios_map = dict(self.bios_choices)

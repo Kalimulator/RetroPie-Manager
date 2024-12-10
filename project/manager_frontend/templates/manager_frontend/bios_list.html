@@ -97,17 +97,27 @@
                     <th class="text-center">{% trans "Check" %}</th>
                 </tr>
             </thead>
-            <tbody>
-            {% for checkbox in delete_form.bios_files %}{% with manifest_entry=bios_manifest|get_item:checkbox.choice_value %}
-                <tr class="{% if manifest_entry.2 %}active{% else %}disabled{% endif %}">
-                    <td class="text-right"><small>{{ forloop.counter }}</small></td>
-                    <td>{{ manifest_entry.1 }}</td>
-                    <td>{{ checkbox.choice_label }}</td> {% comment %}filename{% endcomment %}
-                    <td>{{ checkbox.choice_value }}</td> {% comment %}-> md5{% endcomment %}
-                    <td class="text-center">{% if manifest_entry.2 %}{{ checkbox.tag }}{% else %}&nbsp;{% endif %}</td>
-                </tr>
-            {% endwith %}{% endfor %}
-            </tbody>
+<tbody>
+    {% for value, label in delete_form.bios_files.field.choices %}
+        {% with manifest_entry=bios_manifest|get_item:value %}
+        <tr class="{% if manifest_entry and manifest_entry.2 %}active{% else %}disabled{% endif %}">
+            <td class="text-right"><small>{{ forloop.counter }}</small></td>
+            <td>
+                {% if manifest_entry and manifest_entry.1 %}
+                    {{ manifest_entry.1 }}
+                {% else %}
+                    &nbsp; <!-- Insère une cellule vide si le système est manquant -->
+                {% endif %}
+            </td> <!-- Système -->
+            <td>{{ label }}</td> <!-- Nom du fichier -->
+            <td>{{ value }}</td> <!-- MD5 -->
+            <td class="text-center">
+                <input type="checkbox" name="bios_files" value="{{ value }}">
+            </td>
+        </tr>
+        {% endwith %}
+    {% endfor %}
+</tbody>
         </table>
         <input type="submit" name="delete_submit" value="{% trans "Delete selected files" %}" class="button tiny radius info">
     </div>
